@@ -50,7 +50,6 @@ public:
 	template<unsigned I>
 	struct get {
 		using type = typename detail::ListGet<list, I>::type;
-		//using type = typename detail::ListGet<TypeList<Types...>, I>::type;
 	};
 
 	template<unsigned I>

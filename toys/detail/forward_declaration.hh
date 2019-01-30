@@ -28,8 +28,11 @@ template<class List> struct ListSize;
 
 template<class List> struct ListPopFront;
 template<class List, class T> struct ListPushFront;
+template<class List, class T, T Front> struct VListPushFront;
+template<class ListTarget, class ListSource> struct ListPopBackHelper;
 template<class List> struct ListPopBack;
 template<class List, class T> struct ListPushBack;
+template<class List, class T, T Back> struct VListPushBack;
 
 } // namespace detail
 } // namespace toys
