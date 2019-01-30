@@ -7,25 +7,27 @@
 
 /* include section */
 
+#include "toys/detail/forward_declaration.hh"
+
 /* class & function section */
 
 namespace toys {
 namespace detail {
 
 // forward declarations
-template<class... Types> struct TypeList;
+//template<class... Types> struct TypeList;
 
-template<class List, unsigned I> struct ListAt;
-template<class List> struct ListFront;
-template<class List> struct ListBack;
+//template<class List, unsigned I> struct ListGet;
+//template<class List> struct ListFront;
+//template<class List> struct ListBack;
 
-template<class List> struct ListEmpty;
-template<class List> struct ListSize;
+//template<class List> struct ListEmpty;
+//template<class List> struct ListSize;
 
-template<class List> struct ListPopFront;
-template<class List, class T> struct ListPushFront;
-template<class List> struct ListPopBack;
-template<class List, class T> struct ListPushBack;
+//template<class List> struct ListPopFront;
+//template<class List, class T> struct ListPushFront;
+//template<class List> struct ListPopBack;
+//template<class List, class T> struct ListPushBack;
 
 
 // basic type list definition
@@ -54,36 +56,52 @@ struct ListBack<TypeList<Types...>> {
 
 /* index */
 template<unsigned I>
-struct ListAt<TypeList<>, I> {}; // partial specialization for invalid case
+struct ListGet<TypeList<>, I> {}; // partial specialization for invalid case
 
 template<class List>
-struct ListAt<List, 0> {
+struct ListGet<List, 0> {
 	using type = typename ListFront<List>::type;
 };
 
 template<class List, unsigned I>
-struct ListAt {
-	using type = typename ListAt<typename ListPopFront<List>::type, I-1>::type;
+struct ListGet {
+	using type = typename ListGet<typename ListPopFront<List>::type, I-1>::type;
 };
+
+//template<class Front, class... Rest>
+//struct ListGet<TypeList<Front, Rest...>, 0> {
+//	using type = Front;
+//};
+//
+//template<unsigned I, class Front, class... Rest>
+//struct ListGet<TypeList<Front, Rest...>, I> {
+//	using type = typename ListGet<TypeList<Rest...>, I-1>::type;
+//};
 
 
 // capacity method
 /* empty */
-template<> struct ListEmpty<TypeList<>> { static constexpr bool value = true; };
-
 template<class... Types>
-struct ListEmpty<TypeList<Types...>> { static constexpr bool value = false; };
+struct ListEmpty<TypeList<Types...>> { static constexpr bool value = sizeof...(Types) == 0; };
+
+//template<> struct ListEmpty<TypeList<>> { static constexpr bool value = true; };
+
+//template<class... Types>
+//struct ListEmpty<TypeList<Types...>> { static constexpr bool value = false; };
 
 
 /* size */
-template<> struct ListSize<TypeList<>> { static constexpr size_t value = 0; };
-
 template<class... Types>
-struct ListSize<TypeList<Types...>> {
-	static constexpr size_t value = ListSize<
-		typename ListPopFront<TypeList<Types...>>::type
-		>::value + 1;
-};
+struct ListSize<TypeList<Types...>> { static constexpr size_t value = sizeof...(Types); };
+
+//template<> struct ListSize<TypeList<>> { static constexpr size_t value = 0; };
+
+//template<class... Types>
+//struct ListSize<TypeList<Types...>> {
+//	static constexpr size_t value = ListSize<
+//		typename ListPopFront<TypeList<Types...>>::type
+//		>::value + 1;
+//};
 
 
 // modifiers
