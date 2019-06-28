@@ -30,6 +30,8 @@ void test_join() {
 	std::cout << ice::algorithm::join(sequence1, delimiter) << "\n";
 	std::cout << ice::algorithm::join(sequence2, delimiter) << "\n";
 	std::cout << ice::algorithm::join(sequence3, delimiter) << "\n";
+	std::cout << ice::algorithm::join(sequence1, "#") << "\n";
+	std::cout << ice::algorithm::join(sequence1, '*') << "\n";
 }
 
 int main() {

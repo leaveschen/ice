@@ -13,6 +13,26 @@ namespace ice {
 
 namespace algorithm {
 
+namespace detail {
+
+// range insert helper, TODO: move into independent implementation file
+template<class Range>
+inline void range_insert_back(Range& range, Range const& insertion) {
+	range.insert(std::end(range), std::begin(insertion), std::end(insertion));
+}
+
+template<class Range, std::size_t sz>
+inline void range_insert_back(Range& range, typename Range::value_type const (&insertion)[sz]) {
+	range.insert(std::end(range), std::begin(insertion), std::end(insertion));
+}
+
+template<class Range>
+inline void range_insert_back(Range& range, typename Range::value_type const& insertion) {
+	range.insert(std::end(range), insertion);
+}
+
+} // namespace detail
+
 template<class Sequence, class DelimiterRange>
 decltype(auto) join(Sequence const& sequence,
 		DelimiterRange const& delimiter) {
@@ -25,13 +45,13 @@ decltype(auto) join(Sequence const& sequence,
 
 	// insert first element
 	if (sequence_it != sequence_end) {
-		result.insert(std::end(result), std::begin(*sequence_it), std::end(*sequence_it));
+		detail::range_insert_back(result, *sequence_it);
 		++sequence_it;
 	}
 
 	for (; sequence_it != sequence_end; ++sequence_it) {
-		result.insert(std::end(result), std::begin(delimiter), std::end(delimiter));
-		result.insert(std::end(result), std::begin(*sequence_it), std::end(*sequence_it));
+		detail::range_insert_back(result, delimiter);
+		detail::range_insert_back(result, *sequence_it);
 	}
 	return result;
 }
