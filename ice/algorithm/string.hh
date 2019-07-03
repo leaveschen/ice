@@ -16,6 +16,17 @@
 
 /* class & function section */
 
+namespace ice {
+
+// re-scope
+using algorithm::format;
+
+using algorithm::join;
+
+using algorithm::startswith;
+using algorithm::endswith;
+
+} // namespace
 
 #endif//
 

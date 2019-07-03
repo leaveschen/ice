@@ -9,6 +9,17 @@
 
 /* class & function section */
 
+namespace ice {
+
+namespace algorithm {
+
+template<class Range, class... Args>
+decltype(auto) format(Range&& range, Args&&... args) {
+}
+
+} // namespace algorithm
+
+} // namespace ice
 
 #endif//
 
