@@ -26,6 +26,8 @@ using algorithm::join;
 using algorithm::startswith;
 using algorithm::endswith;
 
+using algorithm::split;
+
 } // namespace
 
 #endif//

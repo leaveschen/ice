@@ -7,6 +7,8 @@
 
 /* include section */
 
+#include <ice/traits/type_traits.hh>
+
 /* class & function section */
 
 namespace ice {

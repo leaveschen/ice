@@ -7,8 +7,22 @@
 
 /* include section */
 
+#include <ice/traits/type_traits.hh>
+
 /* class & function section */
 
+namespace ice {
+
+namespace algorithm {
+
+template<class InputIter, class ReplaceIter>
+decltype(auto) replace(InputIter&& input_begin,
+		InputIter&& input_end,
+		ReplaceIter&& replace_begin) {}
+
+} // namespace algorithm
+
+} // namespace ice
 
 #endif//
 
